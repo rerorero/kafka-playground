@@ -34,5 +34,10 @@ sbt assembly
 # back to kafka directory
 cd <path to kafka repo>
 
-CLASSPASS=<Path to this repo>/connect/target/scala-2.13/kafka-connect-example.jar ./bin/connect-standalone.sh config/connect-standalone.properties <Path to this repo>/connect/config/source.properties
+vi config/connect-standalone.properties
+# edit plugin.path to include the jar file
+# -#plugin.path=
+# +plugin.path=<path to this repo>/connect/target/
+
+./bin/connect-standalone.sh config/connect-standalone.properties <Path to this repo>/connect/config/source.properties
 ```
