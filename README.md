@@ -41,3 +41,23 @@ vi config/connect-standalone.properties
 
 ./bin/connect-standalone.sh config/connect-standalone.properties <Path to this repo>/connect/config/source.properties
 ```
+
+# Debezium
+
+```
+cd debezium
+docker-compose up
+
+cd <path to debezium repo>
+mvn install -Passembly -DskipITs -DskipTests
+cd debezium-connector-mysql/target/
+tar xzvf debezium-connector-mysql-1.5.0.Final-plugin.tar.gz
+
+cd <path to kafka repo>
+vi config/connect-standalone.properties
+# edit plugin.path to include the jar file
+# -#plugin.path=
+# +plugin.path=<path to debezium repo>/debezium-connector-mysql/target
+
+CLASSPATH=/Users/rerorero/go/src/github.com/rerorero/debezium/debezium-connector-mysql/target/ ./bin/connect-standalone.sh config/connect-standalone.properties <Path to this repo>/debezium/mysql-connector.properties
+```

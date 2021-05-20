@@ -1,0 +1,20 @@
+---
+version: '3.4'
+services:
+  mysql:
+    image: mysql:5.7
+    hostname: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: test
+    command:
+    - --server-id=1
+    - --gtid-mode=ON
+    - --enforce-gtid-consistency=ON
+    - --log-bin=binlog
+    - --binlog-format=ROW
+    ports: 
+      - "13326:3306"
+    volumes:
+      - "./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+
